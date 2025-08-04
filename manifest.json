@@ -5,7 +5,8 @@
   "description": "Hide Substack Notes feed to focus on newsletter content. Simple, fast, and effective.",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "notifications"
   ],
   "host_permissions": [
     "*://*.substack.com/*"
@@ -18,9 +19,20 @@
       "run_at": "document_end"
     }
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_title": "Toggle Substack Notes"
+  },
+  "commands": {
+    "toggle-notes": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+N"
+      },
+      "description": "Toggle Notes blocking on/off"
+    }
   },
   "icons": {
     "16": "icon16.png",
