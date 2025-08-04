@@ -1,0 +1,145 @@
+/* Substack Notes Blocker - Simple CSS */
+
+/* Main hiding rules when extension is active */
+body.substack-notes-blocked {
+  /* CSS custom property for consistent hiding */
+  --notes-display: none !important;
+}
+
+/* Hide Notes navigation items */
+body.substack-notes-blocked a[href*="/notes"]:not([href*="/notes-on-"]),
+body.substack-notes-blocked button[aria-label*="Notes" i],
+body.substack-notes-blocked button[aria-label*="note" i],
+body.substack-notes-blocked [data-testid="notes-tab"],
+body.substack-notes-blocked nav a[href$="/notes"],
+body.substack-notes-blocked nav a[href*="/notes?"] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes feed sections */
+body.substack-notes-blocked [class*="notes-feed"],
+body.substack-notes-blocked [class*="Notes"]:not([class*="Notes-on"]),
+body.substack-notes-blocked [data-testid*="notes"],
+body.substack-notes-blocked section[aria-label*="Notes" i] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes posts in main feed */
+body.substack-notes-blocked article[data-testid*="note"],
+body.substack-notes-blocked [class*="note-post"],
+body.substack-notes-blocked [data-post-type="note"] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes activity items */
+body.substack-notes-blocked [class*="activity"] [href*="/notes"],
+body.substack-notes-blocked [class*="activity"] [class*="note"]:not([class*="note-on"]) {
+  display: var(--notes-display);
+}
+
+/* Hide Notes mentions and interactions */
+body.substack-notes-blocked [class*="mention"][href*="/notes"],
+body.substack-notes-blocked [class*="interaction"][href*="/notes"] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes buttons and actions */
+body.substack-notes-blocked button[aria-label*="note" i]:not([aria-label*="note-on" i]),
+body.substack-notes-blocked button[title*="note" i]:not([title*="note-on" i]),
+body.substack-notes-blocked [class*="note-button"] {
+  display: var(--notes-display);
+}
+
+/* Hide sidebar Notes sections */
+body.substack-notes-blocked aside [href*="/notes"]:not([href*="/notes-on-"]),
+body.substack-notes-blocked [class*="sidebar"] [href*="/notes"]:not([href*="/notes-on-"]) {
+  display: var(--notes-display);
+}
+
+/* Hide elements marked by the content script */
+body.substack-notes-blocked [data-notes-hidden="true"] {
+  display: var(--notes-display);
+}
+
+/* Clean up layout gaps where Notes were removed */
+body.substack-notes-blocked nav,
+body.substack-notes-blocked [class*="navigation"],
+body.substack-notes-blocked [role="navigation"] {
+  gap: 0;
+}
+
+/* Hide empty navigation items */
+body.substack-notes-blocked nav > *:empty,
+body.substack-notes-blocked [class*="navigation"] > *:empty,
+body.substack-notes-blocked [role="navigation"] > *:empty {
+  display: var(--notes-display);
+}
+
+/* Handle specific Substack layout patterns */
+body.substack-notes-blocked [class*="tabs"] [href*="/notes"],
+body.substack-notes-blocked [role="tablist"] [href*="/notes"] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes composer/creation tools */
+body.substack-notes-blocked [class*="compose-note"],
+body.substack-notes-blocked [class*="note-composer"],
+body.substack-notes-blocked [data-testid*="note-composer"] {
+  display: var(--notes-display);
+}
+
+/* Hide Notes feed headers and sections */
+body.substack-notes-blocked h1:has-text("Notes"),
+body.substack-notes-blocked h2:has-text("Notes"),
+body.substack-notes-blocked [class*="feed-header"]:has([href*="/notes"]) {
+  display: var(--notes-display);
+}
+
+/* Performance optimization - prevent layout shifts */
+body.substack-notes-blocked [data-notes-hidden="true"] {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Smooth transitions for better UX */
+[data-notes-hidden="true"] {
+  transition: opacity 0.3s ease-out, height 0.3s ease-out;
+  opacity: 0;
+}
+
+/* Accessibility - ensure focus management */
+body.substack-notes-blocked [data-notes-hidden="true"]:focus {
+  outline: none;
+}
+
+/* Handle dynamic content loading */
+body.substack-notes-blocked [class*="infinite-scroll"] [href*="/notes"],
+body.substack-notes-blocked [class*="lazy-load"] [href*="/notes"] {
+  display: var(--notes-display);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  body.substack-notes-blocked [class*="mobile-nav"] [href*="/notes"],
+  body.substack-notes-blocked [class*="mobile-menu"] [href*="/notes"] {
+    display: var(--notes-display);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body.substack-notes-blocked [data-notes-hidden="true"] {
+    border: none;
+    background: transparent;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-notes-hidden="true"] {
+    transition: none;
+  }
+}

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 300px;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      margin: 0;
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .icon {
+      width: 36px;
+      height: 36px;
+      background: #FF6719;
+      border-radius: 8px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    
+    .title-section {
+      flex: 1;
+    }
+    
+    .title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+    
+    .subtitle {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .toggle-section {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    
+    .toggle-label {
+      font-weight: 600;
+      font-size: 15px;
+      color: #1a1a1a;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 28px;
+      background: #ccc;
+      border-radius: 14px;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .toggle-switch.active {
+      background: #FF6719;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .toggle-switch.active .toggle-slider {
+      transform: translateX(22px);
+    }
+    
+    .toggle-description {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.4;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .status-indicator.enabled {
+      background: #e8f5e8;
+      color: #2d5a2d;
+      border: 1px solid #4caf50;
+    }
+    
+    .status-indicator.disabled {
+      background: #fff3e0;
+      color: #8f4700;
+      border: 1px solid #ffcc02;
+    }
+    
+    .status-icon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    
+    .info-section {
+      background: #f0f7ff;
+      border: 1px solid #2196f3;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .info-title {
+      font-weight: 600;
+      color: #1565c0;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    
+    .info-text {
+      font-size: 12px;
+      color: #1976d2;
+      line-height: 1.4;
+    }
+    
+    .footer {
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 11px;
+      color: #999;
+    }
+    
+    .footer-links {
+      margin-bottom: 8px;
+    }
+    
+    .footer-links a {
+      color: #FF6719;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .version {
+      color: #ccc;
+    }
+    
+    .refresh-notice {
+      background: #fff3e0;
+      border: 1px solid #ff9800;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #e65100;
+      text-align: center;
+    }
+    
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="icon">S</div>
+    <div class="title-section">
+      <div class="title">Substack Notes Blocker</div>
+      <div class="subtitle">Focus on newsletter content</div>
+    </div>
+  </div>
+  
+  <div class="toggle-section">
+    <div class="toggle-container">
+      <div class="toggle-label">Block Notes Feed</div>
+      <div class="toggle-switch active" id="notesToggle">
+        <div class="toggle-slider"></div>
+      </div>
+    </div>
+    <div class="toggle-description">
+      Hide Substack Notes to focus on long-form newsletter content
+    </div>
+  </div>
+  
+  <div class="status-indicator enabled" id="statusIndicator">
+    <span class="status-icon">✅</span>
+    <span id="statusText">Notes are hidden</span>
+  </div>
+  
+  <div class="info-section">
+    <div class="info-title">How it works</div>
+    <div class="info-text">
+      This extension hides the Notes feed on all Substack pages, helping you focus on high-quality newsletter content without social media distractions.
+    </div>
+  </div>
+  
+  <div class="refresh-notice" id="refreshNotice" style="display: none;">
+    ⟳ Refresh the page to see changes
+  </div>
+  
+  <div class="footer">
+    <div class="footer-links">
+      <a href="#" id="supportLink">Support</a>
+      <a href="#" id="rateLink">Rate Extension</a>
+    </div>
+    <div class="version">v1.0.0</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

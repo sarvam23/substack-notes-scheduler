@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Substack Notes Blocker",
+  "version": "1.0.0",
+  "description": "Hide Substack Notes feed to focus on newsletter content. Simple, fast, and effective.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.substack.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.substack.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Toggle Substack Notes"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
